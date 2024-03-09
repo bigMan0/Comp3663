@@ -50,6 +50,6 @@ This is a simple Java program for managing a book store. It allows you to perfor
 
 ## Contributors
 
-- [Cameron Burgoyne, Braden , Tyler, Rafe ]
+- [Cameron Burgoyne, Braden Boudreau , Rafe Hambly, Tyler Kennedy]
 
 

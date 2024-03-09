@@ -3,7 +3,6 @@
 // Client
 public class Main {
     public static void main(String[] args) {
-        
         // Singleton instances
         InventoryManager inventoryManager = InventoryManager.getInstance();
         PurchaseManager purchaseManager = PurchaseManager.getInstance();
