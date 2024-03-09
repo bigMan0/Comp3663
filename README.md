@@ -22,7 +22,7 @@ This is a simple Java program for managing a book store. It allows you to perfor
 
 - The program allows you to purchase different types of products such as books, action figures, and comics.
 - Each product is created using the Factory Method design pattern.
-- The `Main` class demonstrates how to create instances of different products using their respective creators.
+- The `Main` class demonstrates how to use the `PurchaseManager` to purchase products.
 
 ### 2. Rent Products
 

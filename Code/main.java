@@ -1,40 +1,61 @@
 // Main.java
+import java.util.Scanner;
 
-// Client
 public class Main {
     public static void main(String[] args) {
-        // Singleton instances
-        InventoryManager inventoryManager = InventoryManager.getInstance();
         PurchaseManager purchaseManager = PurchaseManager.getInstance();
+        Scanner scanner = new Scanner(System.in);
 
-        // Creating a comic
-        Creator comicCreator = new ComicCreator();
-        Product comic = comicCreator.createProduct();
-        if (inventoryManager.checkInventory(ProductType.COMIC)) {
-            inventoryManager.decrementInventory(ProductType.COMIC);
-            comic.create();
-            // Purchase the comic
-            purchaseManager.purchaseProduct(ProductType.COMIC);
-        }
+        while (true) {
+            System.out.println("\n1. Check Inventory");
+            System.out.println("2. Purchase Product");
+            System.out.println("3. Return Product");
+            System.out.println("4. Exit\n");
+            System.out.print("Enter your choice:");
+            int choice = scanner.nextInt();
 
-        // Creating an action figure
-        Creator actionFigureCreator = new ActionFigureCreator();
-        Product actionFigure = actionFigureCreator.createProduct();
-        if (inventoryManager.checkInventory(ProductType.ACTION_FIGURE)) {
-            inventoryManager.decrementInventory(ProductType.ACTION_FIGURE);
-            actionFigure.create();
-            // Purchase the action figure
-            purchaseManager.purchaseProduct(ProductType.ACTION_FIGURE);
+            switch (choice) {
+                case 1:
+                    System.out.println();
+                    displayInventory();
+                    break;
+                case 2:
+                    System.out.println();
+                    purchaseProduct(purchaseManager, scanner);
+                    break;
+                case 3:
+                    System.out.println();   
+                    returnProduct(purchaseManager, scanner);
+                    break;
+                case 4:
+                    System.out.println("Exiting...");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
         }
+    }
 
-        // Creating a book
-        Creator bookCreator = new BookCreator();
-        Product book = bookCreator.createProduct();
-        if (inventoryManager.checkInventory(ProductType.BOOK)) {
-            inventoryManager.decrementInventory(ProductType.BOOK);
-            book.create();
-            // Purchase the book
-            purchaseManager.purchaseProduct(ProductType.BOOK);
-        }
+    private static void displayInventory() {
+        InventoryManager inventoryManager = InventoryManager.getInstance();
+        System.out.println("Inventory Status:");
+        System.out.println("Books: " + inventoryManager.checkInventory(InventoryManager.ProductType.BOOK));
+        System.out.println("Action Figures: " + inventoryManager.checkInventory(InventoryManager.ProductType.ACTION_FIGURE));
+        System.out.println("Comics: " + inventoryManager.checkInventory(InventoryManager.ProductType.COMIC));
+    }
+
+    private static void purchaseProduct(PurchaseManager purchaseManager, Scanner scanner) {
+        System.out.println("Enter the product type to purchase (BOOK, ACTION_FIGURE, COMIC): ");
+        String productTypeString = scanner.next().toUpperCase();
+        InventoryManager.ProductType productType = InventoryManager.ProductType.valueOf(productTypeString);
+        purchaseManager.purchaseProduct(productType);
+    }
+
+    private static void returnProduct(PurchaseManager purchaseManager, Scanner scanner) {
+        System.out.println("Enter the product type to return (BOOK, ACTION_FIGURE, COMIC): ");
+        String productTypeString = scanner.next().toUpperCase();
+        InventoryManager.ProductType productType = InventoryManager.ProductType.valueOf(productTypeString);
+        purchaseManager.returnProduct(productType);
     }
 }

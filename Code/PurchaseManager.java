@@ -5,6 +5,7 @@ public class PurchaseManager {
     private static PurchaseManager instance;
     private InventoryManager inventoryManager;
 
+
     private PurchaseManager() {
         inventoryManager = InventoryManager.getInstance();
     }
@@ -17,8 +18,8 @@ public class PurchaseManager {
     }
 
     // Method to purchase a product
-    public void purchaseProduct(ProductType type) {
-        if (inventoryManager.checkInventory(type)) {
+    public void purchaseProduct(InventoryManager.ProductType type) {
+        if (inventoryManager.checkInventory(type) > 0) {
             inventoryManager.decrementInventory(type);
             System.out.println("Purchased a " + type.toString());
         } else {
@@ -27,7 +28,7 @@ public class PurchaseManager {
     }
 
     // Method to return a product
-    public void returnProduct(ProductType type) {
+    public void returnProduct(InventoryManager.ProductType type) {
         inventoryManager.incrementInventory(type);
         System.out.println("Returned a " + type.toString());
     }
