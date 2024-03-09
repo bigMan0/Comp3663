@@ -1,11 +1,12 @@
 // PurchaseManager.java
 
-// Singleton for purchase and returns
-class PurchaseManager {
+// Singleton for purchase and return management
+public class PurchaseManager {
     private static PurchaseManager instance;
+    private InventoryManager inventoryManager;
 
     private PurchaseManager() {
-        // Constructor logic if needed
+        inventoryManager = InventoryManager.getInstance();
     }
 
     public static synchronized PurchaseManager getInstance() {
@@ -15,6 +16,19 @@ class PurchaseManager {
         return instance;
     }
 
-    // Methods for purchase and returns management
-    // For simplicity, let's assume methods like purchaseProduct, returnProduct, etc.
+    // Method to purchase a product
+    public void purchaseProduct(ProductType type) {
+        if (inventoryManager.checkInventory(type)) {
+            inventoryManager.decrementInventory(type);
+            System.out.println("Purchased a " + type.toString());
+        } else {
+            System.out.println("Sorry, " + type.toString() + " is out of stock.");
+        }
+    }
+
+    // Method to return a product
+    public void returnProduct(ProductType type) {
+        inventoryManager.incrementInventory(type);
+        System.out.println("Returned a " + type.toString());
+    }
 }
