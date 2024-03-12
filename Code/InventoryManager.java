@@ -74,6 +74,4 @@ public class InventoryManager {
                 break;
         }
     }
-
-    // add more methods for inventory management as needed
 }
