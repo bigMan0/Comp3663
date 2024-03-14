@@ -17,19 +17,19 @@ public class PurchaseManager {
         return instance;
     }
 
-    // Method to purchase a product
-    public void purchaseProduct(InventoryManager.ProductType type) {
-        if (inventoryManager.checkInventory(type) > 0) {
-            inventoryManager.decrementInventory(type);
-            System.out.println("Purchased a " + type.toString());
+     // Method to purchase a product
+     public void purchaseProduct(Class<? extends Product> productClass) {
+        if (inventoryManager.checkInventory(productClass) > 0) {
+            inventoryManager.decrementInventory(productClass);
+            System.out.println("Purchased a " + productClass.getSimpleName());
         } else {
-            System.out.println("Sorry, " + type.toString() + " is out of stock.");
+            System.out.println("Sorry, " + productClass.getSimpleName() + " is out of stock.");
         }
     }
 
     // Method to return a product
-    public void returnProduct(InventoryManager.ProductType type) {
-        inventoryManager.incrementInventory(type);
-        System.out.println("Returned a " + type.toString());
+    public void returnProduct(Class<? extends Product> productClass) {
+        inventoryManager.incrementInventory(productClass);
+        System.out.println("Returned a " + productClass.getSimpleName());
     }
 }
