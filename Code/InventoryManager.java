@@ -7,10 +7,12 @@ import java.util.Map;
 
 public class InventoryManager {
     private static InventoryManager instance;
+
+    //using class unkown from product (more modular if you add new products) , and integer (amount of product)
     private Map<Class<? extends Product>, Integer> inventory;
  
     private InventoryManager() {
-        // Initialize inventory map
+        // Initialize inventory map (product and amount)
         inventory = new HashMap<>();
     }
 
@@ -43,7 +45,7 @@ public class InventoryManager {
         inventory.put(productClass, inventory.getOrDefault(productClass, 0) + 1);
     }
 
-    // Method to add new product types to the inventory
+    // Method to add new product types to the inventory from product (factory method)
     public synchronized void addProductType(Class<? extends Product> productClass, int initialQuantity) {
         inventory.put(productClass, initialQuantity);
     }

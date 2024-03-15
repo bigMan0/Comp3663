@@ -19,6 +19,7 @@ public class PurchaseManager {
 
      // Method to purchase a product
      public void purchaseProduct(Class<? extends Product> productClass) {
+        //checks that there is inventory then decreases
         if (inventoryManager.checkInventory(productClass) > 0) {
             inventoryManager.decrementInventory(productClass);
             System.out.println("Purchased a " + productClass.getSimpleName());
