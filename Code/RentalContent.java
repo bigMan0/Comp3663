@@ -3,7 +3,6 @@ public class RentalContent {
     private RentalStrategy rentalStrategy;
     private InventoryManager inventoryManager;
 
-    //add notifications into this to link functality
     public RentalContent(InventoryManager inventoryManager) {
         this.inventoryManager = inventoryManager;
     }
@@ -25,6 +24,7 @@ public class RentalContent {
             inventoryManager.decrementInventory(productClass); // Decrement inventory count
             System.out.println("Rented a " + productClass.getSimpleName() + " for " + days + " days.\n");
 
+            //send notification after user rents product
             notification.sendNotification();
         } else {
             System.out.println("Sorry, " + productClass.getSimpleName() + " is out of stock.");
