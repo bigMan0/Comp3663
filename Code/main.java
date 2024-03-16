@@ -89,6 +89,7 @@ public class Main {
                     System.out.print("Enter your choice: ");
                     int rentalChoice = scanner.nextInt();
                     scanner.nextLine(); // Consume newline
+
                     switch (rentalChoice) {
                         case 1:
                             // Rent a product
@@ -97,15 +98,28 @@ public class Main {
                             System.out.println("2. Action Figure");
                             System.out.println("3. Book");
                             System.out.print("Enter item number: ");
+
                             int rentItemChoice = scanner.nextInt();
                             scanner.nextLine(); // Consume newline
+
                             System.out.println("\nSelect duration:");
                             System.out.println("1. Hourly");
                             System.out.println("2. Daily");
                             System.out.println("3. Weekly");
                             System.out.print("Enter duration number: ");
+
                             int durationChoice = scanner.nextInt();
                             scanner.nextLine(); // Consume newline
+
+                            // Offer choice for notification method
+                            System.out.println("\nSelect notification method:");
+                            System.out.println("1. Email");
+                            System.out.println("2. SMS");
+                            System.out.print("Enter notification method number: ");
+                            int notificationChoice = scanner.nextInt();
+                            scanner.nextLine(); // Consume newline
+                           
+
                             Class<? extends Product> rentProductClass = null;
                             int days = 0;
                             switch (rentItemChoice) {
@@ -121,29 +135,57 @@ public class Main {
                                 default:
                                     System.out.println("Invalid item number.");
                             }
+
                             switch (durationChoice) {
                                 case 1:
                                     System.out.print("Enter number of hours: ");
                                     int hours = scanner.nextInt();
+                                    days = hours / 24;
+                                    
+                                    int remainingHours = hours % 24; // Get the remaining hours
+                                    if (remainingHours > 0) {
+                                        // If there are remaining hours, consider it as a partial day
+                                        days++;
+                                    }
                                     scanner.nextLine(); // Consume newline
-                                    rentalContent.rentProduct(rentProductClass, hours);
                                     break;
+
                                 case 2:
                                     System.out.print("Enter number of days: ");
                                     days = scanner.nextInt();
                                     scanner.nextLine(); // Consume newline
-                                    rentalContent.rentProduct(rentProductClass, days);
                                     break;
+
                                 case 3:
                                     System.out.print("Enter number of weeks: ");
                                     int weeks = scanner.nextInt();
                                     scanner.nextLine(); // Consume newline
-                                    rentalContent.rentProduct(rentProductClass, weeks * 7); // Convert weeks to days
+                                    days = weeks * 7;
+                                    // Convert weeks to days
                                     break;
+
                                 default:
                                     System.out.println("Invalid duration number.");
                             }
+
+                            Notification notification = null;
+                            switch(notificationChoice){
+                                case 1:
+                                    notification = new EmailNotification(new BasicNotification(), rentProductClass, days);
+                                    break;
+                                
+                                case 2:
+                                    notification = new SmsNotification(new BasicNotification(), rentProductClass, days);
+                                    break;
+                                
+                                default:
+                                    System.out.println("Invalid duration number");
+                                }
+                            
+                            //rent product and send notification
+                            rentalContent.rentProduct(rentProductClass, days, notification);
                             break;
+
                         case 2:
                             // Return a rental
                             System.out.println("\nSelect item to return:");
@@ -153,6 +195,7 @@ public class Main {
                             System.out.print("Enter item number: ");
                             int returnItemChoice = scanner.nextInt();
                             scanner.nextLine(); // Consume newline
+
                             Class<? extends Product> returnProductClass = null;
                             switch (returnItemChoice) {
                                 case 1:
@@ -173,7 +216,6 @@ public class Main {
                             System.out.println("Invalid choice. Please enter 1 or 2.");
                     }
                     break;
-            
                 case 5:
                     // Exit
                     exit = true;

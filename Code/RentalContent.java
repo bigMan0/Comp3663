@@ -2,12 +2,10 @@
 public class RentalContent {
     private RentalStrategy rentalStrategy;
     private InventoryManager inventoryManager;
-    private Notification notification;
 
     //add notifications into this to link functality
     public RentalContent(InventoryManager inventoryManager) {
         this.inventoryManager = inventoryManager;
-        //this.notification = notification;
     }
 
     public void setRentalStrategy(RentalStrategy rentalStrategy) {
@@ -21,11 +19,13 @@ public class RentalContent {
         return rentalStrategy.calculatePrice(days);
     }
 
-    public void rentProduct(Class<? extends Product> productClass, int days) {
+    public void rentProduct(Class<? extends Product> productClass, int days, Notification notification) {
         // Check if product is available in inventory
         if (inventoryManager.checkInventory(productClass) > 0) {
             inventoryManager.decrementInventory(productClass); // Decrement inventory count
-            System.out.println("Rented a " + productClass.getSimpleName() + " for " + days + " days.");
+            System.out.println("Rented a " + productClass.getSimpleName() + " for " + days + " days.\n");
+
+            notification.sendNotification();
         } else {
             System.out.println("Sorry, " + productClass.getSimpleName() + " is out of stock.");
         }
