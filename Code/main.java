@@ -141,12 +141,11 @@ public class Main {
                                     System.out.print("Enter number of hours: ");
                                     int hours = scanner.nextInt();
                                     days = hours / 24;
-                                    
-                                    int remainingHours = hours % 24; // Get the remaining hours
+                                    int remainingHours = hours % 24;
                                     if (remainingHours > 0) {
-                                        // If there are remaining hours, consider it as a partial day
-                                        days++;
-                                    }
+                                    // If there are remaining hours, consider it as a partial day
+                                    days++;
+                                }
                                     scanner.nextLine(); // Consume newline
                                     break;
 
@@ -171,11 +170,11 @@ public class Main {
                             Notification notification = null;
                             switch(notificationChoice){
                                 case 1:
-                                    notification = new EmailNotification(new BasicNotification(), rentProductClass, days);
+                                    notification = new EmailNotification(rentProductClass, days);
                                     break;
                                 
                                 case 2:
-                                    notification = new SmsNotification(new BasicNotification(), rentProductClass, days);
+                                    notification = new SmsNotification(rentProductClass, days);
                                     break;
                                 
                                 default:

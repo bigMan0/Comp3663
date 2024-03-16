@@ -1,19 +1,17 @@
 
-// SmsNotificationDecorator.java
-class SmsNotification extends NotificationDecorator {
+// Concrete decorator class adding sms functionality
+class SmsNotification implements Notification {
     Class<? extends Product> productClass;
     private int time;
     
     
-    public SmsNotification(Notification decoratedNotification, Class<? extends Product> productClass, int time) {
-        super(decoratedNotification);
+    public SmsNotification(Class<? extends Product> productClass, int time) {
         this.productClass = productClass;
         this.time = time;
     }
 
     @Override
     public void sendNotification() {
-        super.sendNotification();
         sendSmsNotification();
     }
 

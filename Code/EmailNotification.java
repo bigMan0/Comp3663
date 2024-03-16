@@ -1,18 +1,16 @@
 
 // Concrete decorator class adding email functionality
-class EmailNotification extends NotificationDecorator {
+class EmailNotification implements Notification {
     Class<? extends Product> productClass;
     private int time;
     
-    public EmailNotification(Notification decoratedNotification, Class<? extends Product> productClass, int time) {
-        super(decoratedNotification);
+    public EmailNotification(Class<? extends Product> productClass, int time) {
         this.productClass = productClass;
         this.time = time;
     }
 
     @Override
     public void sendNotification() {
-        super.sendNotification();
         sendEmailNotification();
     }
 
