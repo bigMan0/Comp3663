@@ -1,8 +1,97 @@
 import java.util.Scanner;
+import java.io.*;
+import javax.swing.*;
+import javax.swing.border.*;
+import java.awt.*;
+import java.awt.event.ItemEvent;
 
 public class Main {
+    // No Functionality for Buttons yet, will be implemented soon
+    // Method to create a basic frontend GUI using Java Swing
+    public static void buildGUI(){
+        JFrame frame = new JFrame("RainbowPlus");
+
+        // Title for Page Start Section
+        JLabel title = new JLabel("RainbowPlus", SwingConstants.CENTER);
+        Font heading = new Font("sans-serif", Font.BOLD, 20);
+        title.setFont(heading);
+        title.setPreferredSize(new Dimension(300,50));
+        title.setOpaque(true);
+        title.setBackground(Color.pink);
+        frame.getContentPane().add(title, BorderLayout.PAGE_START);
+
+        // Flow Pane for Main Body
+        JPanel pane = new JPanel(new FlowLayout());
+        pane.setPreferredSize(new Dimension(300,400));
+        pane.setBackground(Color.LIGHT_GRAY);
+        pane.setOpaque(true);
+        frame.getContentPane().add(pane, BorderLayout.CENTER);
+
+        // Rental Durations List
+        String[] rentalTypes = new String[] {"Hourly", "Daily", "Weekly"};
+        JComboBox<String> types = new JComboBox<>(rentalTypes);
+
+        // Item Listener
+        types.addItemListener((ItemEvent e) -> {
+            Object item = e.getItem();
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                System.out.println(item + " has been selected");
+            } else if (e.getStateChange() == ItemEvent.DESELECTED) {
+                System.out.println(item + " has been deselected");
+            }
+        }); 
+
+        pane.add(types, BorderLayout.CENTER);
+
+        // Adding Buttons for Inventory Management
+        JButton purchaseItem = new JButton("Purchase");
+        purchaseItem.setPreferredSize(new Dimension(125, 30));
+        purchaseItem.setBackground(Color.green);
+        purchaseItem.setOpaque(true);
+
+        JButton rentalItem = new JButton("Rent");
+        rentalItem.setPreferredSize(new Dimension(125, 30));
+        rentalItem.setBackground(Color.blue);
+        rentalItem.setOpaque(true);
+
+        JButton returnItem = new JButton("Return");
+        returnItem.setPreferredSize(new Dimension(125, 30));
+        returnItem.setBackground(Color.red);
+        returnItem.setOpaque(true);
+
+        // Add Buttons to Pane
+        pane.add(purchaseItem);
+        pane.add(rentalItem);
+        pane.add(returnItem);
+
+        // Add Checkboxes to Select Items
+        JCheckBox bookBox = new JCheckBox("Book");
+        JCheckBox comicBox = new JCheckBox("Comic");
+        JCheckBox actionBox = new JCheckBox("Action Figure");
+
+        // Add Checkboxes to Pane
+        pane.add(bookBox);
+        pane.add(comicBox);
+        pane.add(actionBox);
+
+        frame.pack();
+        frame.setVisible(true);
+
+    }
+
+
     public static void main(String[] args) {
+<<<<<<< HEAD
         // Get instances of PurchaseManager and InventoryManager and RentalContent
+=======
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                buildGUI();
+            }
+        });
+
+        // Get instances of PurchaseManager and InventoryManager
+>>>>>>> 89078824f4205a88eb31d7206f3fffddc4344dcf
         PurchaseManager purchaseManager = PurchaseManager.getInstance();
         InventoryManager inventoryManager = InventoryManager.getInstance();
         RentalContent rentalContent = new RentalContent(inventoryManager);
