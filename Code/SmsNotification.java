@@ -18,19 +18,16 @@ class SmsNotification implements Notification {
     private void sendSmsNotification() {
         // Implementation for sending SMS notification
         System.out.println("Sending SMS notification...");
-
         //hours
         if (time < 24){
             System.out.println("Message - (You just rented " + productClass.getSimpleName() + " for " + time + " hours.)");
         }
-
         //days
         else if(time >= 24 && time < 168) {
             int days;
             days = time / 24;
             System.out.println("Message - (You just rented " + productClass.getSimpleName() + " for " + days + " days.)");
         }
-
         //week
         else{
             int days;

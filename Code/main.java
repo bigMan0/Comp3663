@@ -308,7 +308,6 @@ public class Main {
             }
             System.out.println(); // Add a newline for better readability
         }
-
         // Close scanner
         scanner.close();
     }
