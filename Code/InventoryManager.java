@@ -1,7 +1,6 @@
 // InventoryManager.java
 
 // Singleton for inventory management
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,7 +44,7 @@ public class InventoryManager {
         inventory.put(productClass, inventory.getOrDefault(productClass, 0) + 1);
     }
 
-    // Method to add new product types to the inventory from product (factory method)
+    // Method to add new product types to the inventory from product
     public synchronized void addProductType(Class<? extends Product> productClass, int initialQuantity) {
         inventory.put(productClass, initialQuantity);
     }

@@ -2,11 +2,10 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        // Get instances of PurchaseManager and InventoryManager
+        // Get instances of PurchaseManager and InventoryManager and RentalContent
         PurchaseManager purchaseManager = PurchaseManager.getInstance();
         InventoryManager inventoryManager = InventoryManager.getInstance();
         RentalContent rentalContent = new RentalContent(inventoryManager);
-
 
         // Add initial quantities of products to inventory
         inventoryManager.addProductType(Comic.class, 10);
@@ -121,7 +120,7 @@ public class Main {
                            
 
                             Class<? extends Product> rentProductClass = null;
-                            int days = 0;
+                            int hours = 0;
                             switch (rentItemChoice) {
                                 case 1:
                                     rentProductClass = Comic.class;
@@ -139,28 +138,24 @@ public class Main {
                             switch (durationChoice) {
                                 case 1:
                                     System.out.print("Enter number of hours: ");
-                                    int hours = scanner.nextInt();
-                                    days = hours / 24;
-                                    int remainingHours = hours % 24;
-                                    if (remainingHours > 0) {
-                                    // If there are remaining hours, consider it as a partial day
-                                    days++;
-                                }
+                                    hours = scanner.nextInt();
                                     scanner.nextLine(); // Consume newline
                                     break;
 
                                 case 2:
                                     System.out.print("Enter number of days: ");
-                                    days = scanner.nextInt();
+                                    int days = scanner.nextInt();
+                                    hours = days * 24;//convert to hours
+
                                     scanner.nextLine(); // Consume newline
                                     break;
 
                                 case 3:
                                     System.out.print("Enter number of weeks: ");
-                                    int weeks = scanner.nextInt();
+                                    int week = scanner.nextInt();
+                                    hours = week * 168;//convert to hours
+
                                     scanner.nextLine(); // Consume newline
-                                    days = weeks * 7;
-                                    // Convert weeks to days
                                     break;
 
                                 default:
@@ -170,11 +165,11 @@ public class Main {
                             Notification notification = null;
                             switch(notificationChoice){
                                 case 1:
-                                    notification = new EmailNotification(rentProductClass, days);
+                                    notification = new EmailNotification(rentProductClass, hours);
                                     break;
                                 
                                 case 2:
-                                    notification = new SmsNotification(rentProductClass, days);
+                                    notification = new SmsNotification(rentProductClass, hours);
                                     break;
                                 
                                 default:
@@ -182,7 +177,7 @@ public class Main {
                                 }
                             
                             //rent product and send notification
-                            rentalContent.rentProduct(rentProductClass, days, notification);
+                            rentalContent.rentProduct(rentProductClass, hours, notification);
                             break;
 
                         case 2:

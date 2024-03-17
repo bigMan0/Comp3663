@@ -1,6 +1,7 @@
 // PurchaseManager.java
 
 // Singleton for purchase and return management
+
 public class PurchaseManager {
     private static PurchaseManager instance;
     private InventoryManager inventoryManager;
@@ -19,6 +20,7 @@ public class PurchaseManager {
 
      // Method to purchase a product
      public void purchaseProduct(Class<? extends Product> productClass) {
+
         //checks that there is inventory then decreases
         if (inventoryManager.checkInventory(productClass) > 0) {
             inventoryManager.decrementInventory(productClass);
@@ -27,7 +29,7 @@ public class PurchaseManager {
             System.out.println("Sorry, " + productClass.getSimpleName() + " is out of stock.");
         }
     }
-
+    
     // Method to return a product
     public void returnProduct(Class<? extends Product> productClass) {
         inventoryManager.incrementInventory(productClass);

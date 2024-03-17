@@ -16,6 +16,23 @@ class EmailNotification implements Notification {
 
     private void sendEmailNotification() {
         System.out.println("Sending notification via email...");
-        System.out.println("Message - (You just rented " + productClass.getSimpleName() + " for " + time + " days. )");
+        //hours
+        if (time < 24){
+            System.out.println("Message - (You just rented " + productClass.getSimpleName() + " for " + time + " hours.)");
+        }
+
+        //days
+        else if(time >= 24 && time < 168) {
+            int days;
+            days = time / 24;
+            System.out.println("Message - (You just rented " + productClass.getSimpleName() + " for " + days + " days.)");
+        }
+
+        //week
+        else{
+            int days;
+            days = time / 24; 
+            System.out.println("Message - (You just rented " + productClass.getSimpleName() + " for " + days + " days.)");
+        }
     }
 }
