@@ -1,12 +1,15 @@
-import java.util.Scanner;
 import java.io.*;
 import javax.swing.*;
-import javax.swing.border.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
+import java.util.*;
 
 public class Main {
-    // No Functionality for Buttons yet, will be implemented soon
+    // No functionality in the buttons yet, will be added tomorrow
+    private static Map<String, Integer> selectedItems = new HashMap<>();
+    
     // Method to create a basic frontend GUI using Java Swing
     public static void buildGUI(){
         JFrame frame = new JFrame("RainbowPlus");
@@ -15,7 +18,7 @@ public class Main {
         JLabel title = new JLabel("RainbowPlus", SwingConstants.CENTER);
         Font heading = new Font("sans-serif", Font.BOLD, 20);
         title.setFont(heading);
-        title.setPreferredSize(new Dimension(300,50));
+        title.setPreferredSize(new Dimension(500,50));
         title.setOpaque(true);
         title.setBackground(Color.pink);
         frame.getContentPane().add(title, BorderLayout.PAGE_START);
@@ -26,22 +29,6 @@ public class Main {
         pane.setBackground(Color.LIGHT_GRAY);
         pane.setOpaque(true);
         frame.getContentPane().add(pane, BorderLayout.CENTER);
-
-        // Rental Durations List
-        String[] rentalTypes = new String[] {"Hourly", "Daily", "Weekly"};
-        JComboBox<String> types = new JComboBox<>(rentalTypes);
-
-        // Item Listener
-        types.addItemListener((ItemEvent e) -> {
-            Object item = e.getItem();
-            if (e.getStateChange() == ItemEvent.SELECTED) {
-                System.out.println(item + " has been selected");
-            } else if (e.getStateChange() == ItemEvent.DESELECTED) {
-                System.out.println(item + " has been deselected");
-            }
-        }); 
-
-        pane.add(types, BorderLayout.CENTER);
 
         // Adding Buttons for Inventory Management
         JButton purchaseItem = new JButton("Purchase");
@@ -64,20 +51,59 @@ public class Main {
         pane.add(rentalItem);
         pane.add(returnItem);
 
-        // Add Checkboxes to Select Items
-        JCheckBox bookBox = new JCheckBox("Book");
-        JCheckBox comicBox = new JCheckBox("Comic");
-        JCheckBox actionBox = new JCheckBox("Action Figure");
+        addQuantitySelector(pane, "Book");
+        addQuantitySelector(pane, "Comic");
+        addQuantitySelector(pane, "Action Figure");
 
-        // Add Checkboxes to Pane
-        pane.add(bookBox);
-        pane.add(comicBox);
-        pane.add(actionBox);
+        // Rental Durations List
+        String[] rentalTypes = new String[] {"Hourly", "Daily", "Weekly"};
+        JComboBox<String> types = new JComboBox<>(rentalTypes);
+
+        // Rental Duration Item Listener
+        types.addItemListener((ItemEvent e) -> {
+            Object item = e.getItem();
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                System.out.println(item + " has been selected");
+            } else if (e.getStateChange() == ItemEvent.DESELECTED) {
+                System.out.println(item + " has been deselected");
+            }
+        }); 
+
+        // Add ComboBox to Pane
+        pane.add(types, BorderLayout.CENTER);
 
         frame.pack();
         frame.setVisible(true);
 
     }
+    private static void addQuantitySelector(JPanel pane, String itemName) {
+        JPanel checkboxPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JComboBox<Integer> quantitySelector = new JComboBox<>();
+        for (int i = 0; i <= 10; i++) { // Limiting quantity selection to 0-10 by default
+            quantitySelector.addItem(i);
+        }
+        quantitySelector.setSelectedIndex(0); // Default to 0 quantity
+        quantitySelector.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                updateSelectedItems(itemName, (int) quantitySelector.getSelectedItem());
+            }
+        });
+        JLabel itemLabel = new JLabel(itemName);
+        itemLabel.setOpaque(true);
+        quantitySelector.setOpaque(true);
+
+
+        checkboxPanel.add(quantitySelector);
+        checkboxPanel.add(itemLabel);
+        pane.add(checkboxPanel);
+    }
+
+      // Update selected items and their quantities
+      private static void updateSelectedItems(String itemName, int quantity) {
+        selectedItems.put(itemName, quantity);
+        System.out.println("Selected Items: " + selectedItems);
+    }
+
 
 
     public static void main(String[] args) {
