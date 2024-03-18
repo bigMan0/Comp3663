@@ -107,9 +107,8 @@ public class Main {
 
 
     public static void main(String[] args) {
-<<<<<<< HEAD
         // Get instances of PurchaseManager and InventoryManager and RentalContent
-=======
+
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 buildGUI();
@@ -117,7 +116,6 @@ public class Main {
         });
 
         // Get instances of PurchaseManager and InventoryManager
->>>>>>> 89078824f4205a88eb31d7206f3fffddc4344dcf
         PurchaseManager purchaseManager = PurchaseManager.getInstance();
         InventoryManager inventoryManager = InventoryManager.getInstance();
         RentalContent rentalContent = new RentalContent(inventoryManager);
