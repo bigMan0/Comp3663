@@ -53,9 +53,10 @@ EmailNotification.java
 SmsNotification.java
 
 Usage
-Run the program.
-Follow the prompts to purchase products, rent products, or perform other operations.
-Check the console output for messages related to the operations you performed.
+1.Run the program.
+2.Follow the prompts in the console to purchase products, rent products, or perform other operations.
+2.(Alternate) Use the buttons displayed on screen to purchase/rent/return products or perform other operations.
+3.Check the console output for messages related to the operations you performed.
 
 Contributors
 [Cameron Burgoyne, Braden Boudreau , Rafe Hambly, Tyler Kennedy]
