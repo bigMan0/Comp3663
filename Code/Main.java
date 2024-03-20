@@ -7,7 +7,9 @@ import java.awt.event.ItemEvent;
 import java.util.*;
 
 public class Main {
-    // No functionality in the buttons yet, will be added tomorrow
+    // No functionality in the buttons, purely for display
+    // Functionality was supposed to be added by Tyler, but did not
+    // get around to adding it in ahead of the project due date
     private static Map<String, Integer> selectedItems = new HashMap<>();
     
     // Method to create a basic frontend GUI using Java Swing
@@ -35,6 +37,19 @@ public class Main {
         purchaseItem.setPreferredSize(new Dimension(125, 30));
         purchaseItem.setBackground(Color.green);
         purchaseItem.setOpaque(true);
+
+        // Code intended to be used for the when the button is clicked
+        // Functionality never completed
+        // purchaseItem.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         // Code to execute when button is clicked
+
+        //         for (int i = 0; i < getSelectedItemQuantity("Book"); i++) {
+        //             purchaseManager.purchaseProduct(Book.class);
+        //         }
+        //     }
+        // });
 
         JButton rentalItem = new JButton("Rent");
         rentalItem.setPreferredSize(new Dimension(125, 30));
